@@ -58,6 +58,13 @@ func (database *Database) AddTask(url string, target string) error {
 	return err
 }
 
+func (database *Database) AddTask(url string, target string) error {
+	_, err := database.db.Exec(`INSERT INTO task ( URL, target )
+	 VALUES 
+	 ( ?, ? );`, url, target)
+	return err
+}
+
 func (database *Database) PrintAllTask() error {
 	res, err := database.db.Query(`select * from task`)
 	defer res.Close()
