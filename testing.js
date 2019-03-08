@@ -1,6 +1,6 @@
-class someClass {
+// class someClass {
 
-	constructor(){
+	// constructor(){
 // var i;
 // for(i =0; i<10; i++)
 // {
@@ -16,12 +16,18 @@ var body = document.getElementsByTagName("body")[0];
 body.appendChild(button);
 
 // 3. Add event handler
-button.addEventListener ("click", preformMesurement());
-	}
+button.addEventListener ("onClick", preformMesurement());
+// }
 
 
 
 function preformMesurement() {
 	console.log("need to preform a measurement");
+	// 1.contact our server get task
+
+	
+	// 2. executre
+	//retur result
+
 }
-}
+// }
