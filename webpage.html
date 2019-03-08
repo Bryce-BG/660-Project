@@ -13,9 +13,43 @@
   </head>
   <body>
       <!-- this will be where we visualize the database results -->
+    
     <h1 class="center">Our TestWebpage</h1>
-      <svg id ="mapSVG" width="960" height="500"></svg>
-    <script src="testing.js"></script>
+    <div class="body">
+      <button type="button" onclick="loadDoc()">Complete measurement task</button>
 
+      <svg id ="mapSVG" width="960" height="500"></svg>
+
+    </div>
+
+    <div id ="footer">
+    <script>
+          function loadDoc() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() 
+            {
+              if (this.readyState == 4 && this.status == 200) 
+              {
+                document.getElementById("footer").innerHTML =this.responseText;
+              }
+          };
+          xhttp.open("GET", "/task.js", true);
+          xhttp.send();
+}
+      
+      
+      
+      
+      </script>
+
+
+
+      <div id="footer">
+
+
+      </div>
+
+
+    </div>
   </body>
 </html>
