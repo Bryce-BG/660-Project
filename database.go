@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -59,7 +60,7 @@ func (database *Database) AddTask(url string, target string) error {
 	return err
 }
 
-func (database *Database) AddResult(task_id int, ip, country, region string, time time, outcome string, user_agent string, duration float) error {
+func (database *Database) AddResult(task_id int, ip, country, region string, time time.Time, outcome string, user_agent string, duration float32) error {
 
 	_, err := database.db.Exec(`INSERT INTO result ( task_id, IP, country, region, time, outcome, user_agent, duration_ms  )
 	 VALUES 
