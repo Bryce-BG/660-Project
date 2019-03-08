@@ -20,7 +20,7 @@ func intHandlerHelper() {
 }
 
 func intHandler(w http.ResponseWriter, r *http.Request) {
-	// USAGE: access http://127.0.0.1:8888/?x=[number]
+	// USAGE: access https://127.0.0.1:8888/?x=[number]
 	xString := r.URL.Query()["x"][0]
 	x, err := strconv.Atoi(xString)
 	if err == nil {
