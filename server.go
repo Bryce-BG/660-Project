@@ -37,19 +37,18 @@ func intHandler(w http.ResponseWriter, r *http.Request) {
 type mockHandler struct {
 }
 
-func (m *mockHandler) ServeHttp(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "count is %d\n", h.n)
+func (mockHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "here is your homework")
 }
 
 func main() {
 	go intHandlerHelper()
 
 	mux := http.NewServeMux()
-	// mux.Handle("/", http.StripPrefix("/", http.FileServer(http.Dir(staticPath))))
-	ts := NewTasksServer()
-	mux.Handle("/task.js", ts)
-	mux.Handle("/submit", nil)
-	mux.Handle("/stats/", nil)
+	mux.Handle("/", http.FileServer(http.Dir("./")))
+	mux.Handle("/task.js", mockHandler{})
+	// mux.Handle("/submit", nil)
+	// mux.Handle("/stats/", nil)
 
 	http.HandleFunc("/", intHandler)
 	http.ListenAndServeTLS(":8888", "server.crt",
