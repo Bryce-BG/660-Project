@@ -38,7 +38,8 @@ type mockHandler struct {
 }
 
 func (mockHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "here is your homework")
+
+	fmt.Fprintf(w, "<div id ='borderedDiv'><p>Here is the measurement task</p></div>")
 }
 
 func main() {
