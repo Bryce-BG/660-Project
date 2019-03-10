@@ -6,23 +6,60 @@
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="ourCSS.css"> <!--our style sheet in an external file-->
 
-    <script src="https://d3js.org/d3.v4.min.js"></script>  
+    <!-- <script src="https://d3js.org/d3.v4.min.js"></script>   -->
     <title>Basic Webpage for our censorship measurement system</title>
 
 
   </head>
   <body>
       <!-- this will be where we visualize the database results -->
-    
+ 
+      
     <h1 class="center">Our TestWebpage</h1>
-    <div class="body">
+
+
+
+
+
+
+
+
+
       <button type="button" onclick="loadDoc()">Complete measurement task</button>
+    
+      <div id="footer"></div>
 
-      <svg id ="mapSVG" width="960" height="500"></svg>
 
-    </div>
+      <div id="testingDiv"></div>
 
-    <div id ="footer">
+      <!-- <script>
+        var CensorshipObject = new Object();
+        CensorshipObject.myID = 10;
+        CensorshipObject.sendSuccess = function() 
+        {
+          console.log("image was loaded correctly");
+          // this.submitResult("success");
+        }
+        CensorshipObject.sendFailure = function() 
+        {
+          console.log("image failed to load correctly");
+          // this.submitResult("failure");
+        }
+        CensorshipObject.measure = function() {
+          var img = new Image(); // width, height values are optional params 
+          img.src = 'https://www.w3schools.com/tags/smiley.gif';
+          img.onerror = CensorshipObject.sendFailure;
+          img.onload = CensorshipObject.sendSuccess;
+          // img.css('display', 'none');   //hide the image we are loading
+ 
+          document.getElementById("testingDiv").appendChild(img);
+
+        }
+        CensorshipObject.measure();//actually call the function to execute measurement task
+     
+      </script> -->
+      
+
     <script>
           function loadDoc() {
             var xhttp = new XMLHttpRequest();
@@ -30,26 +67,29 @@
             {
               if (this.readyState == 4 && this.status == 200) 
               {
-                document.getElementById("footer").innerHTML =this.responseText;
+                var res = document.getElementById("footer").innerHTML =this.responseText;
+                
+                
+                // console.log(document.getElementById('sc1'));
+                
+                
+                eval(document.getElementById('sc1').innerHTML); //actually register new javascript with browser
+
+                // showHint();
+                CensorshipObject.measure();
+                
+                
+                
               }
           };
           xhttp.open("GET", "/task.js", true);
           xhttp.send();
-}
+    }
       
       
       
       
-      </script>
+    </script>
 
-
-
-      <div id="footer">
-
-
-      </div>
-
-
-    </div>
-  </body>
+    </body>
 </html>
