@@ -76,14 +76,8 @@ func (mockHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		// CensorshipObject.measure();//actually call the function to execute measurement task
 		</script>`, imageUrl, measurementId)
 
-	// temp := fmt.Sprintf(`<img  src = "%s"> <script id="sc1" type="text/javascript">function showHint() {
-	// 	console.log("executed this script");}</script>`, imageUrl) //###########just load basic image and test if console prints
-
-	// serverUrl, measurementId, imageUrl)
-	// temp := `<div id ='borderedDiv' ></div>` //TRY X
-	// fmt.Printf(temp)
 	fmt.Fprintf(w, temp)
-	//
+
 }
 
 func main() {

@@ -32,62 +32,36 @@
 
       <div id="testingDiv"></div>
 
-      <script>
-        var CensorshipObject = new Object();
+      <!-- TESTING SCRIP -->
+      <script> 
+      var CensorshipObject = new Object();
 
-
-
-        CensorshipMeter.submitResult = function(state, message) {
-        this.submitted = state;
-        var params = {
-          "cmh-id": this.myID,
-          "cmh-result": state,
-        };
-        if (message != null) {
-          params["cmh-message"] = String(message).substring(0, this.maxMessageLength);
-        }
-        $.ajax({url: this.baseUrl + "?" + $.param(params),});
-        console.log(this.baseUrl + "?" + $.param(params));
-      }
-
-
-
-
-
-
-
-
-
-
-
-
-
-        CensorshipObject.myID = 10;
-        CensorshipObject.sendSuccess = function() 
+        CensorshipObject.sendSuccess = function()
         {
-          console.log("image was loaded correctly");
-          // this.submitResult("success");
+        console.log("image was loaded correctly");
+        // this.submitResult("success");
         }
-        CensorshipObject.sendFailure = function() 
+        CensorshipObject.sendFailure = function()
         {
-          console.log("image failed to load correctly");
-          // this.submitResult("failure");
+        console.log("image failed to load correctly");
+        // this.submitResult("failure");
         }
         CensorshipObject.measure = function() {
-          var img = new Image(); // width, height values are optional params 
-          img.src = 'https://www.w3schools.com/tags/smiley.gif';
-          img.onerror = CensorshipObject.sendFailure;
-          img.onload = CensorshipObject.sendSuccess;
-          // img.css('display', 'none');   //hide the image we are loading
- 
-          document.getElementById("testingDiv").appendChild(img);
+        var img = new Image(); // width, height values are optional params
+        img.src = "https://www.w3schools.com/tags/smiley.gif"; //DEBUGGGING
+        img.onerror = CensorshipObject.sendFailure;
+        img.onload = CensorshipObject.sendSuccess;
+        // img.css('display', 'none');   //hide the image we are loading
+
+        CensorshipObject.myID =3; //DEBUGGING
+        document.getElementById("footer").appendChild(img);
 
         }
-        CensorshipObject.measure();//actually call the function to execute measurement task
+        // CensorshipObject.measure();
      
       </script>
       
-
+      <!-- script to deal with the loading of the the measurement task when button is clicked -->
     <script>
           function loadDoc() {
             var xhttp = new XMLHttpRequest();
@@ -103,7 +77,6 @@
                 
                 eval(document.getElementById('sc1').innerHTML); //actually register new javascript with browser
 
-                // showHint();
                 CensorshipObject.measure();
                 
                 
