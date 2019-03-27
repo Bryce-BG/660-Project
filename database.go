@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"sync"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -10,7 +11,8 @@ import (
 
 // Database : database wrapper
 type Database struct {
-	db *sql.DB
+	db  *sql.DB
+	mux sync.Mutex
 }
 
 func Initialize() (*Database, error) {
@@ -60,11 +62,23 @@ func (database *Database) AddTask(url string, target string) error {
 	return err
 }
 
-func (database *Database) AddResult(task_id int, ip, country, region string, time time.Time, outcome string, user_agent string, duration float32) error {
-
+func (database *Database) AddResultEntry(task_id int, ip, country, region string, time time.Time, user_agent string, duration float32) (int, error) {
+	database.mux.Lock()
 	_, err := database.db.Exec(`INSERT INTO result ( task_id, IP, country, region, time, outcome, user_agent, duration_ms  )
 	 VALUES 
-	 ( ?, ?, ?, ?, ?, ?, ?, ? );`, task_id, ip, country, region, time, outcome, user_agent, duration)
+	 ( ?, ?, ?, ?, ?, ?, ?, ? );`, task_id, ip, country, region, time, nil, user_agent, duration)
+
+	var id int
+	if err == nil {
+		id, err := database.db.Query(`SELECT LAST_INSERT_ID();`)
+	}
+	database.mux.Unlock()
+	return id, err
+}
+
+func (database *Database) UpdateResult(task_id int, outcome string) error {
+
+	_, err := database.db.Exec(`update result set outcome = ?`, outcome)
 	return err
 }
 
