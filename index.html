@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="ourCSS.css"> <!--our style sheet in an external file-->
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 
     <!-- <script src="https://d3js.org/d3.v4.min.js"></script>   -->
     <title>Basic Webpage for our censorship measurement system</title>
@@ -40,6 +41,25 @@
         {
         console.log("image was loaded correctly");
         // this.submitResult("success");
+        // #######################BETA CODE########################
+        var result_json = { "measurement_id" : CensorshipObject.myID,"result_status" : "success"};
+        $.ajax({
+            type: "POST",
+            url: "/submit", //TODO this should be changed to absolute url.
+            // The key needs to match your method's input parameter (case-sensitive).
+            data: JSON.stringify(result_json),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(data){alert("got the data"+ data);},
+            failure: function(errMsg) {
+                alert(errMsg);
+            }
+            });
+
+        });
+
+
+        // #######################BETA CODE########################
         }
         CensorshipObject.sendFailure = function()
         {
@@ -83,6 +103,7 @@
                 
               }
           };
+          // TODO THIS SHOULD BE A ABSOLUTE URL NOT a relative URL because client
           xhttp.open("GET", "/task.js", true);
           xhttp.send();
     }
