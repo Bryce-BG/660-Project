@@ -32,8 +32,36 @@
 
       <div id="testingDiv"></div>
 
-      <!-- <script>
+      <script>
         var CensorshipObject = new Object();
+
+
+
+        CensorshipMeter.submitResult = function(state, message) {
+        this.submitted = state;
+        var params = {
+          "cmh-id": this.myID,
+          "cmh-result": state,
+        };
+        if (message != null) {
+          params["cmh-message"] = String(message).substring(0, this.maxMessageLength);
+        }
+        $.ajax({url: this.baseUrl + "?" + $.param(params),});
+        console.log(this.baseUrl + "?" + $.param(params));
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
         CensorshipObject.myID = 10;
         CensorshipObject.sendSuccess = function() 
         {
@@ -57,7 +85,7 @@
         }
         CensorshipObject.measure();//actually call the function to execute measurement task
      
-      </script> -->
+      </script>
       
 
     <script>
