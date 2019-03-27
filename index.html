@@ -40,7 +40,7 @@
         CensorshipObject.sendSuccess = function()
         {
         console.log("image was loaded correctly");
-        CensorshipObject.submitResult("success");
+        go .submitResult("success");
       }
       CensorshipObject.submitResult = function(message){
         var result_json = { "measurement_id" : CensorshipObject.myID,"result_status" : message};
@@ -81,28 +81,18 @@
               if (this.readyState == 4 && this.status == 200) 
               {
                 var res = document.getElementById("footer").innerHTML =this.responseText;
-                
-                
-                // console.log(document.getElementById('sc1'));
-                
+                             
                 
                 eval(document.getElementById('sc1').innerHTML); //actually register new javascript with browser
 
-                CensorshipObject.measure();
-                
-                
-                
+                CensorshipObject.measure(); //call the function to preform te measurement   
               }
           };
           // TODO THIS SHOULD BE A ABSOLUTE URL NOT a relative URL because client
           xhttp.open("GET", "/task.js", true);
           xhttp.send();
     }
-      
-      
-      
-      
-    </script>
+          </script>
 
     </body>
 </html>
