@@ -18,6 +18,7 @@ type Response struct {
 var in = make(chan int)
 var out = make(chan int)
 var sum int
+var imgTemplate string
 
 func intHandlerHelper() {
 	go func() {
@@ -61,32 +62,7 @@ func (mockHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// get country (from IP)
 	//create db object for resuilt
 
-	temp := fmt.Sprintf(`<script id="sc1" type="text/javascript">
-		var CensorshipObject = new Object();
-
-		CensorshipObject.sendSuccess = function()
-		{
-		console.log("image was loaded correctly");
-		// this.submitResult("success");
-		}
-		CensorshipObject.sendFailure = function()
-		{
-		console.log("image failed to load correctly");
-		// this.submitResult("failure");
-		}
-		CensorshipObject.measure = function() {
-		var img = new Image(); // width, height values are optional params
-		img.src = "%s";
-		img.onerror = CensorshipObject.sendFailure;
-		img.onload = CensorshipObject.sendSuccess;
-		// img.css('display', 'none');   //hide the image we are loading
-
-		CensorshipObject.myID = %d;
-		document.getElementById("footer").appendChild(img);
-
-		}
-		// CensorshipObject.measure();//actually call the function to execute measurement task
-		</script>`, imageUrl, measurementId)
+	temp := fmt.Sprintf(imgTemplate, imageUrl, measurementId)
 
 	fmt.Fprintf(w, temp)
 
@@ -114,6 +90,9 @@ func (submitHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	b, _ := ioutil.ReadFile("task_templates/img.js")
+	imgTemplate = string(b)
+
 	var print = fmt.Println
 	print("server is running open on: localhost:8888")
 	go intHandlerHelper()
