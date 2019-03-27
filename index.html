@@ -34,14 +34,13 @@
       <div id="testingDiv"></div>
 
       <!-- TESTING SCRIPT -->
-      <script> 
+      <!-- <script> 
       var CensorshipObject = new Object();
 
         CensorshipObject.sendSuccess = function()
         {
         console.log("image was loaded correctly");
         CensorshipObject.submitResult("success");
-        // #######################BETA CODE########################
       }
       CensorshipObject.submitResult = function(message){
         var result_json = { "measurement_id" : CensorshipObject.myID,"result_status" : message};
@@ -52,7 +51,6 @@
             data: JSON.stringify(result_json),
             contentType: "application/json"
         });
-        // #######################BETA CODE########################
         }
         CensorshipObject.sendFailure = function()
         {
@@ -72,7 +70,7 @@
         }
         CensorshipObject.measure();
      
-      </script>
+      </script> -->
       
       <!-- script to deal with the loading of the the measurement task when button is clicked -->
     <script>
