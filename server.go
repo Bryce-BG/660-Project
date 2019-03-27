@@ -20,6 +20,8 @@ func intHandlerHelper() {
 	}()
 }
 
+var resultIDMx = 1
+
 func intHandler(w http.ResponseWriter, r *http.Request) {
 	// USAGE: access https://127.0.0.1:8888/?x=[number]
 	xString := r.URL.Query()["x"][0]
@@ -40,8 +42,12 @@ type mockHandler struct {
 func (mockHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	// var serverUrl string = "localhost"
-	measurementId := 10
+	resultIDMx += 1
+	measurementId := resultIDMx
 	var imageUrl = "https://www.w3schools.com/tags/smiley.gif"
+	//get task
+	// get country (from IP)
+	//create db object for resuilt
 
 	temp := fmt.Sprintf(`<script id="sc1" type="text/javascript">
 		var CensorshipObject = new Object();
@@ -88,7 +94,7 @@ func main() {
 	mux := http.NewServeMux()
 	mux.Handle("/", http.FileServer(http.Dir("./")))
 	mux.Handle("/task.js", mockHandler{})
-	// mux.Handle("/submit", nil)
+	// mux.Handle("/submit#id#", nil)
 	// mux.Handle("/stats/", nil)
 
 	http.HandleFunc("/", intHandler)
