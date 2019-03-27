@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"strconv"
@@ -91,20 +92,30 @@ func (mockHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (submitHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	fmt.Println(r.Body)
 	switch r.Method {
 
 	case http.MethodPost:
 		// fmt.Println(r.UserAgent)
-		decoder := json.NewDecoder(r.Body)
-		var t Response
-		r.ParseForm()
-		fmt.Println(r.Form)
-		fmt.Println(r.Body.Read)
-		err := decoder.Decode(&t)
+		body, err := ioutil.ReadAll(r.Body)
 		if err != nil {
-			log.Fatal(err)
+			panic(err)
 		}
+		log.Println(string(body))
+		var t Response
+		err = json.Unmarshal(body, &t)
+		if err != nil {
+			panic(err)
+		}
+
+		// decoder := json.NewDecoder(r.Body)
+		// var t Response
+		// r.ParseForm()
+		// fmt.Println(r.Form)
+		// fmt.Println(r.Body.Read)
+		// err := decoder.Decode(&t)
+		// if err != nil {
+		// 	log.Fatal(err)
+		// }
 		fmt.Println("result: " + t.result + " measurementid: " + string(t.measurementId))
 	case http.MethodGet: //MINE
 		fmt.Println("get method called")
@@ -125,7 +136,7 @@ func main() {
 	// mux.Handle("/stats/", nil)
 
 	http.HandleFunc("/", intHandler)
-	http.ListenAndServeTLS(":8888", "server.crt",
-		"server.key", mux)
+	http.ListenAndServe(":8888", mux)
+	// http.ListenAndServeTLS(":8888", "server.crt", "server.key", mux)
 
 }
