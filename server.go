@@ -67,12 +67,22 @@ func (mockHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		CensorshipObject.sendSuccess = function()
 		{
 		console.log("image was loaded correctly");
-		// this.submitResult("success");
+		CensorshipObject.submitResult("success");
 		}
 		CensorshipObject.sendFailure = function()
 		{
 		console.log("image failed to load correctly");
-		// this.submitResult("failure");
+		CensorshipObject.submitResult("failure");
+		}
+		CensorshipObject.submitResult = function(message){
+			var result_json = { "measurement_id" : CensorshipObject.myID,"result_status" : message};
+	
+			$.ajax({
+				url: "/submit",
+				type: "POST",
+				data: JSON.stringify(result_json),
+				contentType: "application/json"
+			});
 		}
 		CensorshipObject.measure = function() {
 		var img = new Image(); // width, height values are optional params
