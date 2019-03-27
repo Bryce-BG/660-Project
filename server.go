@@ -11,8 +11,8 @@ import (
 )
 
 type Response struct {
-	measurementId int    `json:"measurement_id"`
-	result        string `json:"result_status"`
+	MeasurementId int    `json:"measurement_id"`
+	Result        string `json:"result_status"`
 }
 
 var in = make(chan int)
@@ -100,11 +100,12 @@ func (submitHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			panic(err)
 		}
-		log.Println(string(body))
-		var t Response
+		fmt.Println(string(body))
+		t := Response{}
+		fmt.Println(t)
 		err = json.Unmarshal(body, &t)
 		if err != nil {
-			panic(err)
+			log.Fatal(err)
 		}
 
 		// decoder := json.NewDecoder(r.Body)
@@ -116,7 +117,8 @@ func (submitHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		// if err != nil {
 		// 	log.Fatal(err)
 		// }
-		fmt.Println("result: " + t.result + " measurementid: " + string(t.measurementId))
+		fmt.Println(t)
+		fmt.Println("result: " + t.Result + " measurementid: " + strconv.Itoa(t.MeasurementId))
 	case http.MethodGet: //MINE
 		fmt.Println("get method called")
 
