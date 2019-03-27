@@ -21,7 +21,6 @@ func intHandlerHelper() {
 }
 
 var resultIDMx = 1
-{}
 
 func intHandler(w http.ResponseWriter, r *http.Request) {
 	// USAGE: access https://127.0.0.1:8888/?x=[number]
@@ -49,7 +48,6 @@ func (mockHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	//get task
 	// get country (from IP)
 	//create db object for resuilt
-
 
 	temp := fmt.Sprintf(`<script id="sc1" type="text/javascript">
 		var CensorshipObject = new Object();
