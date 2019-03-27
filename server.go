@@ -1,16 +1,17 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"strconv"
-	"log"
 )
 
-struct response {
-	measurementId `json:measurement_id`,
-	resulr string `json:result`
+type Response struct {
+	measurementId int    `json:"measurement_id"`
+	result        string `json:"result_status"`
 }
 
 var in = make(chan int)
@@ -90,17 +91,26 @@ func (mockHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (submitHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	fmt.Println(r.Body)
 	switch r.Method {
+
 	case http.MethodPost:
-		fmt.Println(r.UserAgent)
+		// fmt.Println(r.UserAgent)
 		decoder := json.NewDecoder(r.Body)
-		var t response
+		var t Response
+		r.ParseForm()
+		fmt.Println(r.Form)
+		fmt.Println(r.Body.Read)
 		err := decoder.Decode(&t)
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Println(t)
+		fmt.Println("result: " + t.result + " measurementid: " + string(t.measurementId))
+	case http.MethodGet: //MINE
+		fmt.Println("get method called")
+
 	}
+	fmt.Fprintf(w, "300") //NEED TO RETURN somme kind of indicater I belive
 }
 
 func main() {

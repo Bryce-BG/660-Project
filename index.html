@@ -33,32 +33,43 @@
 
       <div id="testingDiv"></div>
 
-      <!-- TESTING SCRIP -->
+      <!-- TESTING SCRIPT -->
       <script> 
       var CensorshipObject = new Object();
 
         CensorshipObject.sendSuccess = function()
         {
         console.log("image was loaded correctly");
-        // this.submitResult("success");
+        CensorshipObject.submitResult("success");
         // #######################BETA CODE########################
-        var result_json = { "measurement_id" : CensorshipObject.myID,"result_status" : "success"};
+      }
+      CensorshipObject.submitResult = function(message){
+        var result_json = { "measurement_id" : CensorshipObject.myID,"result_status" : message};
+
+        // console.log(result_json); DEBUGGING
+        // console.log(JSON.stringify(result_json));
+        //TRY 1
+        // $.ajax({
+        //     type: "POST",
+        //     url: "/submit", //TODO this should be changed to absolute url.
+        //     // The key needs to match your method's input parameter (case-sensitive).
+        //     data: JSON.stringify(result_json),
+        //     contentType: "application/json; charset=utf-8",
+        //     dataType: "json"
+        //     });
+
+        ////TRY 2
+        // $.ajax({
+        //   url: "/submit" + "?" + $.param(result_json),
+        //  });
+
+        ////TRY 3
         $.ajax({
+            url: "/submit",
             type: "POST",
-            url: "/submit", //TODO this should be changed to absolute url.
-            // The key needs to match your method's input parameter (case-sensitive).
-            data: JSON.stringify(result_json),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function(data){alert("got the data"+ data);},
-            failure: function(errMsg) {
-                alert(errMsg);
-            }
-            });
-
+            data: JSON.stringify({ "measurement_id" : 99999999,"result_status" : message}),
+            contentType: "application/json"
         });
-
-
         // #######################BETA CODE########################
         }
         CensorshipObject.sendFailure = function()
@@ -68,7 +79,7 @@
         }
         CensorshipObject.measure = function() {
         var img = new Image(); // width, height values are optional params
-        img.src = "https://www.w3schools.com/tags/smiley.gif"; //DEBUGGGING
+        img.src = "https://docs.python.org/3/_static/py.png"; //DEBUGGGING
         img.onerror = CensorshipObject.sendFailure;
         img.onload = CensorshipObject.sendSuccess;
         // img.css('display', 'none');   //hide the image we are loading
@@ -77,7 +88,7 @@
         document.getElementById("footer").appendChild(img);
 
         }
-        // CensorshipObject.measure();
+        CensorshipObject.measure();
      
       </script>
       
