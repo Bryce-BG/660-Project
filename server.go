@@ -30,6 +30,7 @@ func intHandlerHelper() {
 
 var resultIDMx = 1
 
+//UNUSED
 func intHandler(w http.ResponseWriter, r *http.Request) {
 	// USAGE: access https://127.0.0.1:8888/?x=[number]
 	xString := r.URL.Query()["x"][0]
@@ -107,23 +108,9 @@ func (submitHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Fatal(err)
 		}
-
-		// decoder := json.NewDecoder(r.Body)
-		// var t Response
-		// r.ParseForm()
-		// fmt.Println(r.Form)
-		// fmt.Println(r.Body.Read)
-		// err := decoder.Decode(&t)
-		// if err != nil {
-		// 	log.Fatal(err)
-		// }
-		fmt.Println(t)
 		fmt.Println("result: " + t.Result + " measurementid: " + strconv.Itoa(t.MeasurementId))
-	case http.MethodGet: //MINE
-		fmt.Println("get method called")
 
 	}
-	fmt.Fprintf(w, "300") //NEED TO RETURN somme kind of indicater I belive
 }
 
 func main() {

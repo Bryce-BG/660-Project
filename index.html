@@ -46,28 +46,10 @@
       CensorshipObject.submitResult = function(message){
         var result_json = { "measurement_id" : CensorshipObject.myID,"result_status" : message};
 
-        // console.log(result_json); DEBUGGING
-        // console.log(JSON.stringify(result_json));
-        //TRY 1
-        // $.ajax({
-        //     type: "POST",
-        //     url: "/submit", //TODO this should be changed to absolute url.
-        //     // The key needs to match your method's input parameter (case-sensitive).
-        //     data: JSON.stringify(result_json),
-        //     contentType: "application/json; charset=utf-8",
-        //     dataType: "json"
-        //     });
-
-        ////TRY 2
-        // $.ajax({
-        //   url: "/submit" + "?" + $.param(result_json),
-        //  });
-
-        ////TRY 3
         $.ajax({
             url: "/submit",
             type: "POST",
-            data: JSON.stringify({ "measurement_id" : 99999999,"result_status" : message}),
+            data: JSON.stringify(result_json),
             contentType: "application/json"
         });
         // #######################BETA CODE########################
