@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"log"
 	"sync"
 	"time"
 
@@ -60,6 +61,22 @@ func (database *Database) AddTask(url string, target string) error {
 	 VALUES 
 	 ( ?, ? );`, url, target)
 	return err
+}
+
+func (database *Database) OfferRandomTask() (int, string, error) {
+	res, err := database.db.Query(`select task_id, url from table order by rand()`)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer res.Close()
+	var id int
+	var url, target string
+	fmt.Println(res.Columns())
+	for res.Next() {
+		res.Scan(&id, &url, &target)
+		fmt.Println(id, url, target)
+	}
+	return id, url, err
 }
 
 func (database *Database) AddResultEntry(task_id int, ip, country, region string, time time.Time, user_agent string, duration float32) (int, error) {
