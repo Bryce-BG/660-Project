@@ -5,7 +5,13 @@ import (
 	"io"
 	"net/http"
 	"strconv"
+	"log"
 )
+
+struct response {
+	measurementId `json:measurement_id`,
+	resulr string `json:result`
+}
 
 var in = make(chan int)
 var out = make(chan int)
@@ -37,6 +43,9 @@ func intHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 type mockHandler struct {
+}
+
+type submitHandler struct {
 }
 
 func (mockHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -80,6 +89,20 @@ func (mockHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func (submitHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case http.MethodPost:
+		fmt.Println(r.UserAgent)
+		decoder := json.NewDecoder(r.Body)
+		var t response
+		err := decoder.Decode(&t)
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(t)
+	}
+}
+
 func main() {
 	var print = fmt.Println
 	print("server is running open on: localhost:8888")
@@ -88,7 +111,7 @@ func main() {
 	mux := http.NewServeMux()
 	mux.Handle("/", http.FileServer(http.Dir("./")))
 	mux.Handle("/task.js", mockHandler{})
-	// mux.Handle("/submit#id#", nil)
+	mux.Handle("/submit", submitHandler{})
 	// mux.Handle("/stats/", nil)
 
 	http.HandleFunc("/", intHandler)
