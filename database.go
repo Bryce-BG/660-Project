@@ -64,7 +64,7 @@ func (database *Database) AddTask(url string, target string) error {
 }
 
 func (database *Database) OfferRandomTask() (int, string, error) {
-	res, err := database.db.Query(`select task_id, url from table order by rand()`)
+	res, err := database.db.Query(`select * from task order by rand() limit 1`)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -87,7 +87,14 @@ func (database *Database) AddResultEntry(task_id int, ip, country, region string
 
 	var id int
 	if err == nil {
-		id, err := database.db.Query(`SELECT LAST_INSERT_ID();`)
+		res, err := database.db.Query(`SELECT LAST_INSERT_ID();`)
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer res.Close()
+		for res.Next() {
+			res.Scan(&id)
+		}
 	}
 	database.mux.Unlock()
 	return id, err
@@ -117,12 +124,12 @@ func (database *Database) Close() error {
 	return err
 }
 
-func main() {
-	db, err := Initialize()
-	if err != nil {
-		return
-	}
-	db.AddTask("test", "test")
-	db.PrintAllTask()
-	db.Close()
-}
+// func main() {
+// 	db, err := Initialize()
+// 	if err != nil {
+// 		return
+// 	}
+// 	db.AddTask("test", "test")
+// 	db.PrintAllTask()
+// 	db.Close()
+// }

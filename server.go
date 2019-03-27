@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"time"
 )
 
 type Response struct {
@@ -19,6 +20,8 @@ var in = make(chan int)
 var out = make(chan int)
 var sum int
 var imgTemplate string
+var db *Database
+var err error
 
 func intHandlerHelper() {
 	go func() {
@@ -55,15 +58,17 @@ type submitHandler struct {
 func (mockHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	// var serverUrl string = "localhost"
+
 	resultIDMx += 1
-	measurementId := resultIDMx
+	// measurementId := resultIDMx
 	var imageUrl = "https://www.w3schools.com/tags/smiley.gif"
+	taskID, imageUrl, _ := db.OfferRandomTask()
+	measurementId, _ := db.AddResultEntry(taskID, "8.8.8.8", "mars", "moon", time.Time{}, "ghost", 0.0)
 	//get task
 	// get country (from IP)
 	//create db object for resuilt
 
 	temp := fmt.Sprintf(imgTemplate, imageUrl, measurementId)
-
 	fmt.Fprintf(w, temp)
 
 }
@@ -79,7 +84,6 @@ func (submitHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 		fmt.Println(string(body))
 		t := Response{}
-		fmt.Println(t)
 		err = json.Unmarshal(body, &t)
 		if err != nil {
 			log.Fatal(err)
@@ -92,6 +96,11 @@ func (submitHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func main() {
 	b, _ := ioutil.ReadFile("task_templates/img.js")
 	imgTemplate = string(b)
+
+	db, err = Initialize()
+	if err != nil {
+		log.Println(err)
+	}
 
 	var print = fmt.Println
 	print("server is running open on: localhost:8888")
