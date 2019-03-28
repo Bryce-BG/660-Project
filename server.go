@@ -8,7 +8,6 @@ import (
 	"log"
 	"net/http"
 	"strconv"
-	"time"
 )
 
 type Response struct {
@@ -56,19 +55,24 @@ type submitHandler struct {
 }
 
 func (mockHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-
+	fmt.Println(r.UserAgent())
 	// var serverUrl string = "localhost"
 
-	resultIDMx += 1
+	// resultIDMx += 1
 	// measurementId := resultIDMx
-	var imageUrl = "https://www.w3schools.com/tags/smiley.gif"
-	taskID, imageUrl, _ := db.OfferRandomTask()
-	measurementId, _ := db.AddResultEntry(taskID, "8.8.8.8", "mars", "moon", time.Time{}, "ghost", 0.0)
+	// var imageUrl = "https://www.w3schools.com/tags/smiley.gif"
+	taskID, imageURL, _ := db.OfferRandomTask()
+	// measurementID, _ := db.AddResultEntry(taskID, "8.8.8.8", "mars", "moon", time.Time{}, "ghost", 0.0)
+	measurementID, err := db.AddResultEntry(taskID, "8.8.8.8")
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	//get task
 	// get country (from IP)
 	//create db object for resuilt
 
-	temp := fmt.Sprintf(imgTemplate, imageUrl, measurementId)
+	temp := fmt.Sprintf(imgTemplate, imageURL, measurementID)
 	fmt.Fprintf(w, temp)
 
 }
@@ -88,7 +92,8 @@ func (submitHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Println("result: " + t.Result + " measurementid: " + strconv.Itoa(t.MeasurementId))
+		db.UpdateResult(t.MeasurementId, t.Result)
+		// fmt.Println("result: " + t.Result + " measurementid: " + strconv.Itoa(t.MeasurementId))
 
 	}
 }
