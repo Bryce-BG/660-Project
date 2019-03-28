@@ -63,7 +63,9 @@ func (mockHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// var imageUrl = "https://www.w3schools.com/tags/smiley.gif"
 	taskID, imageURL, _ := db.OfferRandomTask()
 	// measurementID, _ := db.AddResultEntry(taskID, "8.8.8.8", "mars", "moon", time.Time{}, "ghost", 0.0)
-	measurementID, err := db.AddResultEntry(taskID, r.RemoteAddr, r.UserAgent())
+	// TODO : placeholder for id.
+	country, city, latitude, longtitude := getLocaleData("8.8.8.8")
+	measurementID, err := db.AddResultEntry(taskID, r.RemoteAddr, r.UserAgent(), country, city, latitude, longtitude)
 	if err != nil {
 		log.Fatal(err)
 	}

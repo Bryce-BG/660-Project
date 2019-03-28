@@ -1,12 +1,15 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 )
 
 var print = fmt.Println
+var api_key = "4d1c81287462457797aa070514b60faa"
 
 type geoResponse struct {
 	IP             string `json:"ip"`
@@ -46,11 +49,10 @@ type geoResponse struct {
 	} `json:"time_zone"`
 }
 
-func getGeoInfo(ipaddress string) string {
+func getGeoInfo(ipaddress string) geoResponse {
 	var address = ipaddress
-	var API_Key = "4d1c81287462457797aa070514b60faa"
 
-	temp := fmt.Sprintf("https://api.ipgeolocation.io/ipgeo?apiKey=%s&ip=%s", API_Key, address)
+	temp := fmt.Sprintf("https://api.ipgeolocation.io/ipgeo?apiKey=%s&ip=%s", api_key, address)
 
 	resp, err := http.Get(temp)
 	if err != nil {
@@ -63,12 +65,22 @@ func getGeoInfo(ipaddress string) string {
 	if err != nil {
 		// handle error
 	}
-	return string(body)
+	ret := geoResponse{}
+	json.Unmarshal(body, &ret)
+	return ret
 
 }
 
-func main() {
-	// Provide a domain name or IP address
+func getLocaleData(ip string) (string, string, float32, float32) {
+	ret := getGeoInfo(ip)
+	lat, _ := strconv.ParseFloat(ret.Latitude, 32)
+	long, _ := strconv.ParseFloat(ret.Longitude, 32)
 
-	print(getGeoInfo("45.79.8.237"))
+	return ret.CountryName, ret.City, float32(lat), float32(long)
 }
+
+// func main() {
+// 	// Provide a domain name or IP address
+
+// 	print(getGeoInfo("45.79.8.237"))
+// }

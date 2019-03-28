@@ -29,7 +29,10 @@ func Initialize() (*Database, error) {
 		task_id INT UNSIGNED NOT NULL,
 		IP TEXT NOT NULL,
 		country TEXT,
+		city TEXT,
 		region TEXT,
+		latitude FLOAT,
+		longtitude FLOAT,
 		time DATETIME,
 		outcome TEXT,
 		user_agent TEXT,
@@ -79,11 +82,11 @@ func (database *Database) OfferRandomTask() (int, string, error) {
 	return id, url, err
 }
 
-func (database *Database) AddResultEntry(task_id int, ip, user_agent string) (int, error) {
+func (database *Database) AddResultEntry(task_id int, ip, user_agent, country, city string, latitude, longtitude float32) (int, error) {
 	database.mux.Lock()
-	_, err := database.db.Exec(`INSERT INTO result ( task_id, IP, user_agent)
+	_, err := database.db.Exec(`INSERT INTO result ( task_id, IP, user_agent, country, city, latitude, longtitude)
 	 VALUES 
-	 ( ?, ?, ?);`, task_id, ip, user_agent)
+	 ( ?, ?, ?, ?, ?, ?, ?);`, task_id, ip, user_agent, country, city, latitude, longtitude)
 
 	var id int
 	if err == nil {
