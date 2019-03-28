@@ -79,11 +79,11 @@ func (database *Database) OfferRandomTask() (int, string, error) {
 	return id, url, err
 }
 
-func (database *Database) AddResultEntry(task_id int, ip string) (int, error) {
+func (database *Database) AddResultEntry(task_id int, ip, user_agent string) (int, error) {
 	database.mux.Lock()
-	_, err := database.db.Exec(`INSERT INTO result ( task_id, IP)
+	_, err := database.db.Exec(`INSERT INTO result ( task_id, IP, user_agent)
 	 VALUES 
-	 ( ?, ?);`, task_id, ip)
+	 ( ?, ?, ?);`, task_id, ip, user_agent)
 
 	var id int
 	if err == nil {

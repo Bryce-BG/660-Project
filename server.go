@@ -55,7 +55,7 @@ type submitHandler struct {
 }
 
 func (mockHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	fmt.Println(r.UserAgent())
+	fmt.Println(r.UserAgent(), r.Host, r.RemoteAddr)
 	// var serverUrl string = "localhost"
 
 	// resultIDMx += 1
@@ -63,7 +63,7 @@ func (mockHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// var imageUrl = "https://www.w3schools.com/tags/smiley.gif"
 	taskID, imageURL, _ := db.OfferRandomTask()
 	// measurementID, _ := db.AddResultEntry(taskID, "8.8.8.8", "mars", "moon", time.Time{}, "ghost", 0.0)
-	measurementID, err := db.AddResultEntry(taskID, "8.8.8.8")
+	measurementID, err := db.AddResultEntry(taskID, r.RemoteAddr, r.UserAgent())
 	if err != nil {
 		log.Fatal(err)
 	}
