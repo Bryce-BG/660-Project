@@ -8,46 +8,43 @@ import (
 
 var print = fmt.Println
 
-// struct geoResponse {
-
-// 		"ip": "8.8.8.8",
-// 		"hostname": "google-public-dns-a.google.com",
-// 		"continent_code": "NA",
-// 		"continent_name": "North America",
-// 		"country_code2": "US",
-// 		"country_code3": "USA",
-// 		"country_name": "United States",
-// 		"country_capital": "Washington",
-// 		"state_prov": "California",
-// 		"district": "",
-// 		"city": "Mountain View",
-// 		"zipcode": "94043",
-// 		"latitude": "37.4229",
-// 		"longitude": "-122.085",
-// 		"is_eu": false,
-// 		"calling_code": "+1",
-// 		"country_tld": ".us",
-// 		"languages": "en-US,es-US,haw,fr",
-// 		"country_flag": "https://ipgeolocation.io/static/flags/us_64.png",
-// 		"isp": "Level 3 Communications",
-// 		"connection_type": "",
-// 		"organization": "Google Inc.",
-// 		"geoname_id": "5375480",
-// 		"currency": {
-// 			"code": "USD",
-// 			"name": "US Dollar",
-// 			"symbol": "$"
-// 		},
-// 		"time_zone": {
-// 			"name": "America/Los_Angeles",
-// 			"offset": -8,
-// 			"current_time": "2019-01-14 03:30:00.135-0800",
-// 			"current_time_unix": 1547465400.135,
-// 			"is_dst": false,
-// 			"dst_savings": 1
-// 		}
-
-// }
+type geoResponse struct {
+	IP             string `json:"ip"`
+	ContinentCode  string `json:"continent_code"`
+	ContinentName  string `json:"continent_name"`
+	CountryCode2   string `json:"country_code2"`
+	CountryCode3   string `json:"country_code3"`
+	CountryName    string `json:"country_name"`
+	CountryCapital string `json:"country_capital"`
+	StateProv      string `json:"state_prov"`
+	District       string `json:"district"`
+	City           string `json:"city"`
+	Zipcode        string `json:"zipcode"`
+	Latitude       string `json:"latitude"`
+	Longitude      string `json:"longitude"`
+	IsEu           bool   `json:"is_eu"`
+	CallingCode    string `json:"calling_code"`
+	CountryTld     string `json:"country_tld"`
+	Languages      string `json:"languages"`
+	CountryFlag    string `json:"country_flag"`
+	Isp            string `json:"isp"`
+	ConnectionType string `json:"connection_type"`
+	Organization   string `json:"organization"`
+	GeonameID      string `json:"geoname_id"`
+	Currency       struct {
+		Code   string `json:"code"`
+		Name   string `json:"name"`
+		Symbol string `json:"symbol"`
+	} `json:"currency"`
+	TimeZone struct {
+		Name            string  `json:"name"`
+		Offset          int     `json:"offset"`
+		CurrentTime     string  `json:"current_time"`
+		CurrentTimeUnix float64 `json:"current_time_unix"`
+		IsDst           bool    `json:"is_dst"`
+		DstSavings      int     `json:"dst_savings"`
+	} `json:"time_zone"`
+}
 
 func getGeoInfo(ipaddress string) string {
 	var address = ipaddress
