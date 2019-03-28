@@ -60,7 +60,6 @@ func Initialize() (*Database, error) {
 
 func (database *Database) AddTask(url string, target string) error {
 	_, err := database.db.Exec(`INSERT INTO task ( URL, target )
-
 	 VALUES 
 	 ( ?, ? );`, url, target)
 	return err
