@@ -129,7 +129,8 @@ func (database *Database) Close() error {
 // 	if err != nil {
 // 		return
 // 	}
-// 	db.AddTask("test", "test")
+// 	db.AddTask("https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png", "google")
+// 	db.AddTask("https://en.wikipedia.org/static/images/project-logos/enwiki.png", "wikipedia ")
 // 	db.PrintAllTask()
 // 	db.Close()
 // }
