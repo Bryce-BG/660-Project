@@ -79,7 +79,29 @@ func (database *Database) OfferRandomTask() (int, string, error) {
 	return id, url, err
 }
 
-func (database *Database) AddResultEntry(task_id int, ip, country, region string, time time.Time, user_agent string, duration float32) (int, error) {
+func (database *Database) AddResultEntry(task_id int, ip string) (int, error) {
+	database.mux.Lock()
+	_, err := database.db.Exec(`INSERT INTO result ( task_id, IP)
+	 VALUES 
+	 ( ?, ?);`, task_id, ip)
+
+	var id int
+	if err == nil {
+		res, err := database.db.Query(`SELECT LAST_INSERT_ID();`)
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer res.Close()
+		for res.Next() {
+			res.Scan(&id)
+		}
+	}
+	database.mux.Unlock()
+	fmt.Println(id)
+	return id, err
+}
+
+func (database *Database) AddResul(task_id int, ip, country, region string, time time.Time, user_agent string, duration float32) (int, error) {
 	database.mux.Lock()
 	_, err := database.db.Exec(`INSERT INTO result ( task_id, IP, country, region, time, outcome, user_agent, duration_ms  )
 	 VALUES 
@@ -97,12 +119,13 @@ func (database *Database) AddResultEntry(task_id int, ip, country, region string
 		}
 	}
 	database.mux.Unlock()
+	fmt.Println(id)
 	return id, err
 }
 
-func (database *Database) UpdateResult(task_id int, outcome string) error {
+func (database *Database) UpdateResult(result_id int, outcome string) error {
 
-	_, err := database.db.Exec(`update result set outcome = ?`, outcome)
+	_, err := database.db.Exec(`update result set outcome = ? where result_id = ?`, outcome, result_id)
 	return err
 }
 
