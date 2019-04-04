@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -102,13 +104,41 @@ public class TaskCreator
 		}
 
 	
-	
+	public static String[] readFile(String filePath){
+		ArrayList<String> temp = new ArrayList();
+		
+		BufferedReader reader;
+		try {
+			reader = new BufferedReader(new FileReader(filePath));
+			String line = reader.readLine();
+			while (line != null) {
+				temp.add(line);
+				line = reader.readLine();
+			}
+			reader.close();
+			
+			return temp.toArray(new String[0]);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	public static void main(String[] args) {
 		
+		//TODO 
+		/**
+		 * 1. read file (toArray)
+		 * 
+		 */
+		String[] fileLines =readFile("somefile.txt");
 		String url = "http://www.google.com"; //TODO need to deal with potentially http or https
 		getImgURL(url);
 		
 	
 	}
+	
+	
+	
+	
 }
