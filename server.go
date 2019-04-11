@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 )
 
@@ -21,6 +22,7 @@ var sum int
 var imgTemplate string
 var db *Database
 var err error
+var online bool
 
 func intHandlerHelper() {
 	go func() {
@@ -109,8 +111,14 @@ func main() {
 		log.Println(err)
 	}
 
+	port, isSet := os.LookupEnv("PORT")
+	online = isSet
+	if isSet == false {
+		port = "8888"
+	}
+
 	var print = fmt.Println
-	print("server is running open on: localhost:8888")
+	print("server is running open on: localhost:" + port)
 	go intHandlerHelper()
 
 	mux := http.NewServeMux()
@@ -120,7 +128,7 @@ func main() {
 	// mux.Handle("/stats/", nil)
 
 	http.HandleFunc("/", intHandler)
-	http.ListenAndServe(":8888", mux)
+	http.ListenAndServe(":"+port, mux)
 	// http.ListenAndServeTLS(":8888", "server.crt", "server.key", mux)
 
 }
