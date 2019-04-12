@@ -103,7 +103,7 @@ func (database *Database) AddResultEntry(task_id int, ip, user_agent, country, c
 	return id, err
 }
 
-func (database *Database) AddResul(task_id int, ip, country, region string, time time.Time, user_agent string, duration float32) (int, error) {
+func (database *Database) AddResult(task_id int, ip, country, region string, time time.Time, user_agent string, duration float32) (int, error) {
 	database.mux.Lock()
 	_, err := database.db.Exec(`INSERT INTO result ( task_id, IP, country, region, time, outcome, user_agent, duration_ms  )
 	 VALUES 
@@ -149,13 +149,21 @@ func (database *Database) Close() error {
 	return err
 }
 
-// func main() {
-// 	db, err := Initialize()
-// 	if err != nil {
-// 		return
-// 	}
-// 	db.AddTask("https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png", "google")
-// 	db.AddTask("https://en.wikipedia.org/static/images/project-logos/enwiki.png", "wikipedia ")
-// 	db.PrintAllTask()
-// 	db.Close()
-// }
+func (database *Database) addDemoTasks() error {
+	// db.AddTask("https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png", "google")
+	// db.AddTask("https://en.wikipedia.org/static/images/project-logos/enwiki.png", "wikipedia ")
+	database.AddTask("https://example.com/blocked.jpg", "demo")
+	return nil
+}
+
+func main() {
+	// db, err := Initialize()
+	// if err != nil {
+	// 	return
+	// }
+	// // db.AddTask("https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png", "google")
+	// // db.AddTask("https://en.wikipedia.org/static/images/project-logos/enwiki.png", "wikipedia ")
+	// db.AddTask("https://example.com/blocked.jpg", "demo")
+	// db.PrintAllTask()
+	// db.Close()
+}
