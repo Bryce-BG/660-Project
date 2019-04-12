@@ -156,14 +156,14 @@ func (database *Database) addDemoTasks() error {
 	return nil
 }
 
-func main() {
-	// db, err := Initialize()
-	// if err != nil {
-	// 	return
-	// }
-	// // db.AddTask("https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png", "google")
-	// // db.AddTask("https://en.wikipedia.org/static/images/project-logos/enwiki.png", "wikipedia ")
-	// db.AddTask("https://example.com/blocked.jpg", "demo")
-	// db.PrintAllTask()
-	// db.Close()
-}
+// func main() {
+// db, err := Initialize()
+// if err != nil {
+// 	return
+// }
+// // db.AddTask("https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png", "google")
+// // db.AddTask("https://en.wikipedia.org/static/images/project-logos/enwiki.png", "wikipedia ")
+// db.AddTask("https://example.com/blocked.jpg", "demo")
+// db.PrintAllTask()
+// db.Close()
+// }
