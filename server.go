@@ -128,7 +128,7 @@ func main() {
 	// mux.Handle("/stats/", nil)
 
 	http.HandleFunc("/", intHandler)
-	http.ListenAndServe(":"+port, mux)
-	// http.ListenAndServeTLS(":8888", "server.crt", "server.key", mux)
+	// http.ListenAndServe(":"+port, mux)
+	http.ListenAndServeTLS(":"+port, "server.crt", "server.key", mux)
 
 }
