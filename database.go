@@ -83,9 +83,9 @@ func (database *Database) OfferRandomTask() (int, string, error) {
 
 func (database *Database) AddResultEntry(task_id int, ip, user_agent, country, city string, latitude, longtitude float32) (int, error) {
 	database.mux.Lock()
-	_, err := database.db.Exec(`INSERT INTO result ( task_id, IP, user_agent, country, city, latitude, longtitude)
+	_, err := database.db.Exec(`INSERT INTO result ( task_id, IP, user_agent, country, city, latitude, longtitude, time)
 	 VALUES 
-	 ( ?, ?, ?, ?, ?, ?, ?);`, task_id, ip, user_agent, country, city, latitude, longtitude)
+	 ( ?, ?, ?, ?, ?, ?, ?, ?);`, task_id, ip, user_agent, country, city, latitude, longtitude, time.Now())
 
 	var id int
 	if err == nil {
@@ -103,7 +103,7 @@ func (database *Database) AddResultEntry(task_id int, ip, user_agent, country, c
 	return id, err
 }
 
-func (database *Database) AddResult(task_id int, ip, country, region string, time time.Time, user_agent string, duration float32) (int, error) {
+func (database *Database) AddResultDeprecated(task_id int, ip, country, region string, time time.Time, user_agent string, duration float32) (int, error) {
 	database.mux.Lock()
 	_, err := database.db.Exec(`INSERT INTO result ( task_id, IP, country, region, time, outcome, user_agent, duration_ms  )
 	 VALUES 
