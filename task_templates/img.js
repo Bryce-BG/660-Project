@@ -29,7 +29,7 @@
 		// img.css('display', 'none');   //hide the image we are loading
 
 		CensorshipObject.myID = %d;
-		document.getElementById("footer").appendChild(img);
+		document.body.appendChild(img);
 
 		}
 		// CensorshipObject.measure();//actually call the function to execute measurement task
