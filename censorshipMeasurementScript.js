@@ -4,8 +4,6 @@
 // @version           2.2.6
 // @description       Measure Censorship by periodically polling our server for a random image on a potentially blocked site 
 // @author            Bryce Bodley-Gomes
-// @license           GPL
-// @supportURL        https://github.com/Bryce-BG/660-Project
 // @include           *
 // @require           https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js
 // @run-at            document-idle
@@ -32,3 +30,4 @@ function loadDoc() {
   xhttp.open("GET", "/task.js", true);
   xhttp.send();
 }
+loadDoc();
