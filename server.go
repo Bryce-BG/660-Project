@@ -58,6 +58,7 @@ type submitHandler struct {
 
 func (mockHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(r.UserAgent(), r.Host, r.RemoteAddr)
+
 	taskID, imageURL, _ := db.OfferRandomTask()
 	// measurementID, _ := db.AddResultEntry(taskID, "8.8.8.8", "mars", "moon", time.Time{}, "ghost", 0.0)
 
