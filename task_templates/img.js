@@ -15,7 +15,7 @@
 			var result_json = { "measurement_id" : CensorshipObject.myID,"result_status" : message};
 	
 			$.ajax({
-				url: "/submit",
+				url: "https://localhost:8888/submit",
 				type: "POST",
 				data: JSON.stringify(result_json),
 				contentType: "application/json"
