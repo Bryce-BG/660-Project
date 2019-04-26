@@ -18,8 +18,8 @@ function loadDoc() {
 	{
 	  if (this.readyState == 4 && this.status == 200) 
 	  {
-		var res = document.getElementById("footer").innerHTML =this.responseText;
-					 
+		var res = document.getElementById("footer").innerHTML.appendChild(this.responseText);
+
 		
 		eval(document.getElementById('sc1').innerHTML); //actually register new javascript with browser
 

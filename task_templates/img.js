@@ -16,6 +16,8 @@
 	
 			$.ajax({
 				url: "https://localhost:8888/submit",
+				crossDomain: true,
+				headers: {"Access-Control-Allow-Origin": "*"},
 				type: "POST",
 				data: JSON.stringify(result_json),
 				contentType: "application/json"
@@ -30,6 +32,7 @@
 
 		CensorshipObject.myID = %d;
 		document.body.appendChild(img);
+		
 
 		}
 		// CensorshipObject.measure();//actually call the function to execute measurement task
