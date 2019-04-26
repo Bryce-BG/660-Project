@@ -58,15 +58,10 @@ type submitHandler struct {
 
 func (mockHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(r.UserAgent(), r.Host, r.RemoteAddr)
-	// var serverUrl string = "localhost"
-
-	// resultIDMx += 1
-	// measurementId := resultIDMx
-	// var imageUrl = "https://www.w3schools.com/tags/smiley.gif"
 	taskID, imageURL, _ := db.OfferRandomTask()
 	// measurementID, _ := db.AddResultEntry(taskID, "8.8.8.8", "mars", "moon", time.Time{}, "ghost", 0.0)
-	// TODO : placeholder for id.
-	country, city, latitude, longtitude := getLocaleData("8.8.8.8")
+
+	country, city, latitude, longtitude := getLocaleData("8.8.8.8") //TODO replace this with the user's IP address
 	measurementID, err := db.AddResultEntry(taskID, r.RemoteAddr, r.UserAgent(), country, city, latitude, longtitude)
 	if err != nil {
 		log.Fatal(err)

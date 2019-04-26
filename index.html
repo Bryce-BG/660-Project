@@ -24,54 +24,12 @@
 
 
 
-
-
       <button type="button" onclick="loadDoc()">Complete measurement task</button>
     
       <div id="footer"></div>
 
 
-      <div id="testingDiv"></div>
-
-      <!-- TESTING SCRIPT -->
-      <!-- <script> 
-      var CensorshipObject = new Object();
-
-        CensorshipObject.sendSuccess = function()
-        {
-        console.log("image was loaded correctly");
-        go .submitResult("success");
-      }
-      CensorshipObject.submitResult = function(message){
-        var result_json = { "measurement_id" : CensorshipObject.myID,"result_status" : message};
-
-        $.ajax({
-            url: "/submit",
-            type: "POST",
-            data: JSON.stringify(result_json),
-            contentType: "application/json"
-        });
-        }
-        CensorshipObject.sendFailure = function()
-        {
-        console.log("image failed to load correctly");
-        // this.submitResult("failure");
-        }
-        CensorshipObject.measure = function() {
-        var img = new Image(); // width, height values are optional params
-        img.src = "https://docs.python.org/3/_static/py.png"; //DEBUGGGING
-        img.onerror = CensorshipObject.sendFailure;
-        img.onload = CensorshipObject.sendSuccess;
-        // img.css('display', 'none');   //hide the image we are loading
-
-        CensorshipObject.myID =3; //DEBUGGING
-        document.getElementById("footer").appendChild(img);
-
-        }
-        CensorshipObject.measure();
-     
-      </script> -->
-      
+    
       <!-- script to deal with the loading of the the measurement task when button is clicked -->
     <script>
           function loadDoc() {
