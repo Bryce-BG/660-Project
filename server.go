@@ -75,6 +75,7 @@ func (mockHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	//get task
 	// get country (from IP)
 	//create db object for resuilt
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 
 	temp := fmt.Sprintf(imgTemplate, imageURL, measurementID)
 	fmt.Fprintf(w, temp)
