@@ -27,7 +27,7 @@ function loadDoc() {
 	  }
   };
   // TODO THIS SHOULD BE A ABSOLUTE URL NOT a relative URL because client
-  xhttp.open("GET", "/task.js", true);
+  xhttp.open("GET", "https://localhost:8888/task.js", true);
   xhttp.send();
 }
 loadDoc();
