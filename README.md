@@ -8,7 +8,7 @@ For the server:
 
 
 <br>For the user:<br>
-1. Install greeseMonkey or Tampermonkey (depending on browser)
+1. Install greaseMonkey or Tampermonkey (depending on browser)
 2. install the script contained in this github repository named: censorshipMeasurementScript.js
 
 ```bash
