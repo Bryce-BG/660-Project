@@ -5,7 +5,8 @@ The system proposed was critisized as being unethical due to the users being una
 
 To run our system:<br>
 For the server:
-
+1. install required libraries
+2. run the command: go run server.go database.go testingGeoIP.go
 
 <br>For the user:<br>
 1. Install greaseMonkey or Tampermonkey (depending on browser)
