@@ -126,6 +126,6 @@ func main() {
 
 	http.HandleFunc("/", intHandler)
 	// http.ListenAndServe(":"+port, mux)
-	http.ListenAndServeTLS(":"+port, "server.crt", "server.key", mux)
+	http.ListenAndServeTLS(":"+port, "cert/server.crt", "cert/server.key", mux)
 
 }
