@@ -11,5 +11,25 @@ For the server:
 1. Install greeseMonkey or Tampermonkey (depending on browser)
 2. install the script contained in this github repository named: censorshipMeasurementScript.js
 
+```bash
+├── README.md
+├── TaskCreator.java
+├── URLUtils.java
+├── censorshipMeasurementScript.js
+├── database.go
+├── expandedTest.txt
+├── index.html
+├── ourCSS.css
+├── server.crt
+├── server.go
+├── server.key
+├── shortgfwlist.txt
+├── task.js
+├── task_templates
+│   ├── Procfile
+│   └── img.js
+└── testingGeoIP.go
+```
+
 
 
