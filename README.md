@@ -13,22 +13,24 @@ For the server:
 
 ```bash
 ├── README.md
-├── TaskCreator.java
-├── URLUtils.java
 ├── censorshipMeasurementScript.js
+├── cert
+│   ├── server.crt
+│   └── server.key
+├── data
+│   ├── TaskCreator.java
+│   ├── URLUtils.java
+│   ├── expandedTest.txt
+│   └── shortgfwlist.txt
 ├── database.go
-├── expandedTest.txt
-├── index.html
-├── ourCSS.css
-├── server.crt
 ├── server.go
-├── server.key
-├── shortgfwlist.txt
-├── task.js
 ├── task_templates
 │   ├── Procfile
 │   └── img.js
-└── testingGeoIP.go
+├── testingGeoIP.go
+└── webpage
+    ├── index.html
+    └── ourCSS.css
 ```
 
 
