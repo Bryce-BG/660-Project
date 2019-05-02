@@ -10,7 +10,8 @@ For the server:
 3. ensure mysql service is running (computer (right click)-> select "manage" -> go to "services" -> find "mysql" (right click) -> select start)
 4. If you wish to have different measurment tasks call the database.addTask(url, target) to include them in the database.
 5. Update line 26 of database.go to reflect the username password and database name for where you wish to store the results. Form: "(username):(password)@tcp(localhost)/(database_name)")
-6. run the command: go run server.go database.go testingGeoIP.go
+6. Register with https://ipgeolocation.io/ and get an API key and replace in testingGeoIP.go, line 12
+7. run the command: go run server.go database.go testingGeoIP.go
 
 
 <br>For the user:<br>
